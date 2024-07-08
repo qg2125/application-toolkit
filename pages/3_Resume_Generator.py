@@ -40,16 +40,16 @@ with resume_assistant:
 
 #-------------------------------------------------------------
     st.divider()
-    st.subheader("🔬 科研经历生成 Generating experience")
+    st.subheader("📝 经历生成 Generating experience")
     
     with st.form("my_form"):
         Date = st.write("请先使用上面的工具生成符合格式的日期 👆🏻") if 'generated_date' not in st.session_state else st.session_state['generated_date']
-        ResearchTitle = st.text_input("Research title")
-        Role = st.text_input("Your role, such as Undergraduate Research Assistant")
-        Institution = st.text_input("Institution, organization, or university")
+        ResearchTitle = st.text_input("Research title (only used for research exeprience)")
+        Role = st.text_input("Your role, such as Undergraduate Research Assistant, Machine Learning Intern")
+        Institution = st.text_input("Company, institution, organization, or university")
         Location = st.text_input("Location or Remote")
         # Ensure Date is initialized somewhere in your app, e.g., in a date picker input
-        Advisor = st.text_input("Your advisor:")
+        Advisor = st.text_input("Your advisor (only used for research exeprience)")
         Experience = st.text_area("复制或者输入经历的描述（中英文夹杂没关系，语言支离破碎也没关系），拉拽文本框的右下角增加文本框长度。Go ahead and paste or type out your experiences — it's totally fine if it's a mix of English and Chinese. Drag the bottom right corner of the text box to expand it as needed!")
         
         # Every form must have a submit button.
