@@ -47,7 +47,7 @@ with resume_assistant:
         ResearchTitle = st.text_input("Research title (only used for research exeprience)")
         Role = st.text_input("Your role, such as Undergraduate Research Assistant, Machine Learning Intern")
         Institution = st.text_input("Company, institution, organization, or university")
-        Location = st.text_input("Location or Remote")
+        Location = st.text_input("Location")
         # Ensure Date is initialized somewhere in your app, e.g., in a date picker input
         Advisor = st.text_input("Your advisor (only used for research exeprience)")
         Experience = st.text_area("复制或者输入经历的描述（中英文夹杂没关系，语言支离破碎也没关系），拉拽文本框的右下角增加文本框长度。Go ahead and paste or type out your experiences — it's totally fine if it's a mix of English and Chinese. Drag the bottom right corner of the text box to expand it as needed!")
@@ -59,7 +59,7 @@ with resume_assistant:
             'ResearchTitle': ResearchTitle,
             'Role': Role,
             'Institution': Institution,
-            'Location': Institution,
+            'Location': Location,
             'Date': Date,
             'Advisor': Advisor,
             'Experience': Experience
@@ -70,7 +70,7 @@ with resume_assistant:
         
     if 'generated_experience' in st.session_state:
         st.markdown("#### 生成结果 Output")
-        st.write(st.session_state['generated_experience'])
+        st.markdown(st.session_state['generated_experience'])
             
 
 with chat_assistant:

@@ -82,10 +82,10 @@ def generate_date(start, end, format_requirement):
 def generate_resume_content(resume_data, model_type):
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_template_resume_content),
-        ("user", f"""The user will input the following information for you to craft the resume according to the instructions {resume_data['ResearchTitle']} {resume_data['Role']} {resume_data['Institution']} {resume_data['Location']} {resume_data['Date']} {resume_data['Advisor']} {resume_data['Experience']}""")
+        ("user", f"""The user will input the following information for you to craft the resume according to the instructions in system template {resume_data['ResearchTitle']} {resume_data['Role']} {resume_data['Institution']} {resume_data['Location']} {resume_data['Date']} {resume_data['Advisor']} {resume_data['Experience']}""")
     ])
 
-    openai_model = ChatOpenAI(model = "gpt-3.5-turbo", api_key="sk-Z5K96AqB3ENn11jUB7853404A0E145D990495363A681041a", base_url="https://api2.aigcbest.top/v1")
+    openai_model = ChatOpenAI(model = "gpt-4", api_key="sk-Z5K96AqB3ENn11jUB7853404A0E145D990495363A681041a", base_url="https://api2.aigcbest.top/v1")
     gemini_model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key="AIzaSyAS7iBE-CshQOyhlk-PlnDRJhE7JROcXaQ")
     if model_type=="gpt-3.5":
         chain = prompt | openai_model
