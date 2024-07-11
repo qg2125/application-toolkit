@@ -30,9 +30,9 @@ with st.expander("🖊️ 推荐人筛选原则"):
 
 with st.expander("🖊️ 推荐信提交流程"):
     st.write(" 1️⃣ 学生需自行在每个项目的网申系统中填写推荐人信息，包括姓名、职称、职位、关系以及电子邮件地址（推荐使用官方邮箱，例如以“.edu”或公司域名结尾的邮箱）。请注意，建议选择“I waive my right to access this report.”的选项，以提高推荐信的可信度。")
-    st.image("images/upload_1.jpg")
+    st.image("images/upload_1.jpg", width=600)
     st.write("2️⃣ 填写完成后，申请系统自动发邮件到推荐人的邮箱。")
-    st.image("images/upload_2.jpg")
+    st.image("images/upload_2.jpg", width=600)
     st.write(
         """
         3️⃣ 当候选人通过推荐链接提交申请时，推荐系统通常包含以下部分：
@@ -43,7 +43,7 @@ with st.expander("🖊️ 推荐信提交流程"):
         * 额外问题（可选）： 部分系统可能会要求推荐人回答一些关于候选人的额外问题，以更全面地了解候选人。
 """
     )
-    st.image("images/upload_3.jpg")
+    st.image("images/upload_3.jpg", width=600)
     st.write("""
         4️⃣ 推荐人提交推荐信后，学生通常会收到申请邮箱的邮件通知，告知该推荐人的推荐信已提交。如果未收到邮件，则可直接在申请系统中查看提交状态。
     """
