@@ -1,5 +1,6 @@
 import streamlit as st
 
+st.set_page_config(layout="centered")
 st.markdown("## 常见推荐信问题 Reference Letter FAQ")
 with st.expander("🖊️ 合适的推荐人数量和搭配"):
     st.write("""
