@@ -1,3 +1,4 @@
+import streamlit as st
 from langchain.chains import ConversationChain
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -7,15 +8,13 @@ from langchain_anthropic import ChatAnthropic
 
 #1 ChatMate AI
 def get_chat_response(prompt, memory, model_type):
-    openai_model = ChatOpenAI(model="gpt-4o-mini", openai_api_key="sk-fHzAJXqDYhnJYeexCa4c683e9aBd401bA5Ad398fD52eC126", base_url="https://35.aigcbest.top/v1/")
-    gemini_model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key="AIzaSyAS7iBE-CshQOyhlk-PlnDRJhE7JROcXaQ")
-    claude_model = ChatOpenAI(model="claude-3-haiku-20240307", api_key="sk-Z5K96AqB3ENn11jUB7853404A0E145D990495363A681041a", base_url="https://api2.aigcbest.top/v1/")
+    openai_model = ChatOpenAI(model=st.secrets["GPT_4OMINI_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"])
+    gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"])
+    
     if model_type=="chatgpt":
         chain = ConversationChain(llm=openai_model, memory=memory)
     elif model_type=="gemini":
         chain = ConversationChain(llm=gemini_model, memory=memory)
-    elif model_type == "claude":
-        chain = ConversationChain(llm =claude_model, memory=memory)
     else:
         raise ValueError("Unsupported model type: {}".format(model_type))
 
@@ -31,10 +30,10 @@ def generate_essay_toEnglish(txt, creativity,model_type):
 
     
     if model_type=="chatgpt":
-        openai_model = ChatOpenAI(model = "gpt-4o-mini", api_key="sk-fHzAJXqDYhnJYeexCa4c683e9aBd401bA5Ad398fD52eC126", base_url="https://35.aigcbest.top/v1/", temperature=creativity)
+        openai_model = ChatOpenAI(model=st.secrets["GPT_4OMINI_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"], temperature=creativity)
         chain = prompt | openai_model
     elif model_type=="gemini":
-        gemini_model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key="AIzaSyAS7iBE-CshQOyhlk-PlnDRJhE7JROcXaQ", temperature=creativity*0.6)
+        gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"], temperature=creativity*0.6)
         chain = prompt | gemini_model
     
     else:
@@ -49,8 +48,8 @@ def generate_essay_toChinese(txt, creativity,model_type):
         ("user", user_template_toChinese)
     ])
 
-    openai_model = ChatOpenAI(model = "gpt-4o-mini", api_key="sk-fHzAJXqDYhnJYeexCa4c683e9aBd401bA5Ad398fD52eC126", base_url="https://35.aigcbest.top/v1/", temperature=creativity)
-    gemini_model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key="AIzaSyAS7iBE-CshQOyhlk-PlnDRJhE7JROcXaQ", temperature=creativity*0.6)
+    openai_model = ChatOpenAI(model=st.secrets["GPT_4OMINI_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"], temperature=creativity)
+    gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"], temperature=creativity*0.6)
     
     if model_type=="chatgpt":
         chain = prompt | openai_model
@@ -92,9 +91,9 @@ def generate_resume_content(resume_data):
         ("user", f"""The user will input the following information for you to craft the resume according to the instructions in system template {resume_data['ResearchTitle']} {resume_data['Role']} {resume_data['Institution']} {resume_data['Location']} {resume_data['Date']} {resume_data['Advisor']} {resume_data['Experience']}""")
     ])
 
-    openai_model = ChatOpenAI(model = "gpt-4-all", api_key="sk-fHzAJXqDYhnJYeexCa4c683e9aBd401bA5Ad398fD52eC126", base_url="https://35.aigcbest.top/v1/")
-    gemini_model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key="AIzaSyAS7iBE-CshQOyhlk-PlnDRJhE7JROcXaQ")
-    claude_model = ChatOpenAI(model="claude-3-5-sonnet-20240620", api_key="sk-Z5K96AqB3ENn11jUB7853404A0E145D990495363A681041a", base_url="https://api2.aigcbest.top/v1/")
+    openai_model = ChatOpenAI(model = st.secrets["GPT_4ALL_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"])
+    gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"])
+    claude_model = ChatOpenAI(model=st.secrets["CLAUDE_MODEL"], api_key=st.secrets["CLAUDE_API_KEY"], base_url=st.secrets["CLAUDE_BASE_URL"])
     
     chain_gpt = prompt | openai_model
     chain_gemini = prompt | gemini_model
@@ -113,9 +112,9 @@ def generate_rl_first(first_para_input):
         ("user", "{input}")
     ])
 
-    openai_model = ChatOpenAI(model = "gpt-4-all", api_key="sk-fHzAJXqDYhnJYeexCa4c683e9aBd401bA5Ad398fD52eC126", base_url="https://35.aigcbest.top/v1/")
-    gemini_model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key="AIzaSyAS7iBE-CshQOyhlk-PlnDRJhE7JROcXaQ")
-    claude_model = ChatOpenAI(model="claude-3-5-sonnet-20240620", api_key="sk-Z5K96AqB3ENn11jUB7853404A0E145D990495363A681041a", base_url="https://api2.aigcbest.top/v1/")
+    openai_model = ChatOpenAI(model = st.secrets["GPT_4ALL_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"])
+    gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"])
+    claude_model = ChatOpenAI(model=st.secrets["CLAUDE_MODEL"], api_key=st.secrets["CLAUDE_API_KEY"], base_url=st.secrets["CLAUDE_BASE_URL"])
     
     chain_gpt = prompt | openai_model
     chain_gemini = prompt | gemini_model
