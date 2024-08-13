@@ -4,7 +4,7 @@ from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 from prompt_template import system_template_resume_content, system_template_toEnglish, user_template_toEnglish, system_template_toChinese, user_template_toChinese, system_template_rl_first
-from langchain_anthropic import ChatAnthropic
+
 
 #1 ChatMate AI
 def get_chat_response(prompt, memory, model_type):
