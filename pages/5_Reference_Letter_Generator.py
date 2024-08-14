@@ -4,7 +4,7 @@ from utils import generate_rl_first
 st.set_page_config(layout="wide")
 st.markdown("## 推荐信内容生成 Reference Letter Generator")
 
-first_para_input = st.text_area("请输入被推荐人姓名，推荐人的相关信息，包括姓名、职位、公司或学校名称、和被推荐人的关系（例如科研指导老师，实习指导老师或者某门课程任课老师）、和被推荐人什么时候认识，想强调被推荐人的哪些优点。")
+first_para_input = st.text_area("请输入被推荐人姓名，推荐人的相关信息，包括姓名、职位、公司或学校名称、和被推荐人的关系（例如科研指导老师，实习指导老师或者某门课程任课老师）、和被推荐人什么时候认识，想强调被推荐人的哪些优点和具体例子。")
 submit_first = st.button("生成推荐信 Generate")
 
 if submit_first:
