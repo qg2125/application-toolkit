@@ -3,7 +3,7 @@ from langchain.chains import ConversationChain
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
-from prompt_template import system_template_resume_content, system_template_toEnglish, user_template_toEnglish, system_template_toChinese, user_template_toChinese, system_template_rl_first, system_template_email
+from prompt_template import system_template_resume_content, system_template_toEnglish, user_template_toEnglish, system_template_toChinese, user_template_toChinese, system_template_rl_first, system_template_email, system_template_para
 
 
 #1 ChatMate AI
@@ -144,5 +144,26 @@ def generate_email(email_input, email_style):
     result_gpt = chain_gpt.invoke({"input": email_input, "style":email_style}).content
     result_gemini = chain_gemini.invoke({"input": email_input, "style":email_style}).content
     result_claude = chain_claude.invoke({"input": email_input, "style":email_style}).content
+
+    return result_gpt,result_gemini,result_claude
+
+# 7. paragraph editor
+def generate_para(para_input, para_major, para_language, length_min, length_max):
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_template_para),
+        ("user", "{input}")
+    ])
+
+    openai_model = ChatOpenAI(model = st.secrets["GPT_4ALL_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"])
+    gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"])
+    claude_model = ChatOpenAI(model=st.secrets["CLAUDE_MODEL"], api_key=st.secrets["CLAUDE_API_KEY"], base_url=st.secrets["CLAUDE_BASE_URL"])
+    
+    chain_gpt = prompt | openai_model
+    chain_gemini = prompt | gemini_model
+    chain_claude = prompt | claude_model
+    
+    result_gpt = chain_gpt.invoke({"input": para_input, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
+    result_gemini = chain_gemini.invoke({"input": para_input, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
+    result_claude = chain_claude.invoke({"input": para_input, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
 
     return result_gpt,result_gemini,result_claude
