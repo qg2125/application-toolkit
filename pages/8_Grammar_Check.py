@@ -11,13 +11,14 @@ submit_first = st.button("开始修改 Revise")
 if submit_first:
     with st.spinner("你的AI小助手正在努力工作嘤...Your AI assistant is working..."):
         grammar_gpt, grammar_gemini, grammar_claude  = grammar_checker(grammar_input)
-        gpt_col, gemini_col, claude_col = st.tabs(["GPT version","Gemini version", "Claude version"])
+        gpt_col, gemini_col, claude_col = st.tabs([ "Claude version","GPT version","Gemini version"])
+        with claude_col:
+            st.markdown("#### Claude Version:")
+            st.markdown(grammar_claude)
         with gpt_col:
             st.markdown("#### GPT Version:")
             st.markdown(grammar_gpt)
         with gemini_col:
             st.markdown("#### Gemini Version:")
             st.markdown(grammar_gemini)
-        with claude_col:
-            st.markdown("#### Claude Version:")
-            st.markdown(grammar_claude)
+        
