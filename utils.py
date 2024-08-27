@@ -10,11 +10,14 @@ from prompt_template import system_template_resume_content, system_template_toEn
 def get_chat_response(prompt, memory, model_type):
     openai_model = ChatOpenAI(model=st.secrets["GPT_4OMINI_MODEL"], openai_api_key=st.secrets["4OMONI_API_KEY"], base_url=st.secrets["4OMINI_BASE_URL"])
     gemini_model = ChatGoogleGenerativeAI(model=st.secrets["GEMINI_MODEL"], google_api_key=st.secrets["GEMINI_API_KEY"])
+    claude_model = ChatOpenAI(model=st.secrets["CLAUDE_MODEL"], api_key=st.secrets["CLAUDE_API_KEY"], base_url=st.secrets["CLAUDE_BASE_URL"])
     
     if model_type=="chatgpt":
         chain = ConversationChain(llm=openai_model, memory=memory)
     elif model_type=="gemini":
         chain = ConversationChain(llm=gemini_model, memory=memory)
+    elif model_type =="claude":
+        chain = ConversationChain(llm=claude_model, memory = memory)
     else:
         raise ValueError("Unsupported model type: {}".format(model_type))
 

@@ -9,8 +9,8 @@ if 'selected_model' not in st.session_state:
     st.session_state['selected_model'] = 'gemini'  # Default model
 
 with st.expander("请选择使用的语言模型 Please choose the language model you'd like to use："):
-    proposed_model = st.radio("", ["chatgpt", "gemini"], 
-                            index=["chatgpt", "gemini"].index(st.session_state['selected_model']))
+    proposed_model = st.radio("", ["chatgpt", "gemini", "claude"], 
+                            index=["chatgpt", "gemini", "claude"].index(st.session_state['selected_model']))
     if st.button('选择 Select'):
         st.session_state['selected_model'] = proposed_model  # Update the session state only when button is clicked
 
