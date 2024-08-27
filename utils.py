@@ -163,7 +163,7 @@ def reply_email(previous_email, email_reply, email_style):
 
 
 # 8. paragraph editor
-def generate_para(para_input, para_major, para_language, length_min, length_max):
+def generate_para(para_input, para_requirements,para_major, para_language, length_min, length_max):
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_template_para),
         ("user", "{input}")
@@ -177,9 +177,9 @@ def generate_para(para_input, para_major, para_language, length_min, length_max)
     chain_gemini = prompt | gemini_model
     chain_claude = prompt | claude_model
     
-    result_gpt = chain_gpt.invoke({"input": para_input, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
-    result_gemini = chain_gemini.invoke({"input": para_input, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
-    result_claude = chain_claude.invoke({"input": para_input, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
+    result_gpt = chain_gpt.invoke({"input": para_input, "requirements":para_requirements, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
+    result_gemini = chain_gemini.invoke({"input": para_input, "requirements":para_requirements, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
+    result_claude = chain_claude.invoke({"input": para_input, "requirements":para_requirements, "major":para_major, "language":para_language, "min":length_min, "max":length_max}).content
 
     return result_gpt,result_gemini,result_claude
 
