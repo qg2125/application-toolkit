@@ -21,38 +21,38 @@ tab1, tab2 = st.tabs(["中译英 Chinese to English","英译中 English to Chine
 
 with tab1:
     
-    paragraph1 = st.text_area("复制或者输入需要翻译的文本（中文夹杂英文没关系，语言支离破碎也没关系），拉拽文本框的右下角增加文本框长度。Go ahead and paste or type out the text you want to translate — it's totally fine if it's a mix of English and Chinese. Drag the bottom right corner of the text box to expand it as needed!")
-    creativity = st.slider("请输入翻译后英文文本的创造力（数字小说明更严谨，数字大说明更多样更有创造性，默认值为1。Please enter a creativity value for the translated English text. A lower number means it's more precise, while a higher number indicates it's more diverse and creative. The default value is 1.）", min_value=0.5,
+    st.session_state['trans_1_input'] = st.text_area("复制或者输入需要翻译的文本（中文夹杂英文没关系，语言支离破碎也没关系），拉拽文本框的右下角增加文本框长度。Go ahead and paste or type out the text you want to translate — it's totally fine if it's a mix of English and Chinese. Drag the bottom right corner of the text box to expand it as needed!")
+    st.session_state['trans_1_creativity'] = st.slider("请输入翻译后英文文本的创造力（数字小说明更严谨，数字大说明更多样更有创造性，默认值为1。Please enter a creativity value for the translated English text. A lower number means it's more precise, while a higher number indicates it's more diverse and creative. The default value is 1.）", min_value=0.5,
                        max_value=1.5, value=1.0, step=0.1)
     submit1 = st.button("翻译 To English")
 
     if submit1:
         with st.spinner("你的AI小助手正在努力工作嘤...Your AI translator is working..."):
-            result1 = generate_essay_toEnglish(paragraph1,creativity,st.session_state['selected_model'])
+            st.session_state['trans_1_result'] = generate_essay_toEnglish(st.session_state['trans_1_input'],st.session_state['trans_1_creativity'],st.session_state['selected_model'])
         st.divider()
         left,right = st.columns(2)
         with left:
             st.markdown("#### 原文 Original Text")
-            st.write(paragraph1)
+            st.write(st.session_state['trans_1_input'])
         with right:
             st.markdown("#### 翻译后的文本 Translated text")
-            st.write(result1)
+            st.write(st.session_state['trans_1_result'] )
 
 with tab2:
     
-    paragraph2 = st.text_area("复制或者输入需要翻译的文本（英文夹杂中文没关系，语言支离破碎也没关系），拉拽文本框的右下角增加文本框长度。Go ahead and paste or type out the text you want to translate — it's totally fine if it's a mix of English and Chinese. Drag the bottom right corner of the text box to expand it as needed!")
-    creativity2 = st.slider("请输入翻译后中文文本的创造力（数字小说明更严谨，数字大说明更多样更有创造性，默认值为1。Please enter a creativity value for the translated English text. A lower number means it's more precise, while a higher number indicates it's more diverse and creative. The default value is 1.）", min_value=0.5,
+    st.session_state['trans_2_input'] = st.text_area("复制或者输入需要翻译的文本（英文夹杂中文没关系，语言支离破碎也没关系），拉拽文本框的右下角增加文本框长度。Go ahead and paste or type out the text you want to translate — it's totally fine if it's a mix of English and Chinese. Drag the bottom right corner of the text box to expand it as needed!")
+    st.session_state['trans_2_creativity'] = st.slider("请输入翻译后中文文本的创造力（数字小说明更严谨，数字大说明更多样更有创造性，默认值为1。Please enter a creativity value for the translated English text. A lower number means it's more precise, while a higher number indicates it's more diverse and creative. The default value is 1.）", min_value=0.5,
                        max_value=1.5, value=1.0, step=0.1)
     submit2 = st.button("翻译 To Chinese")
 
     if submit2:
         with st.spinner("你的AI小助手正在努力工作嘤...Your AI translator is working..."):
-            result2 = generate_essay_toChinese(paragraph2,creativity2,st.session_state['selected_model'])
+            st.session_state['trans_2_result'] = generate_essay_toChinese(st.session_state['trans_2_input'],st.session_state['trans_2_creativity'],st.session_state['selected_model'])
         st.divider()
         left,right = st.columns(2)
         with left:
             st.markdown("#### 原文 Original text")
-            st.write(paragraph2)
+            st.write(st.session_state['trans_2_input'])
         with right:
             st.markdown("#### 翻译后的文本 Translated text")
-            st.write(result2)
+            st.write(st.session_state['trans_2_result'])
