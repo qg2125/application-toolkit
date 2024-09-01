@@ -3,9 +3,21 @@ from utils import generate_essay_toEnglish, generate_essay_toChinese
 
 st.set_page_config(layout="wide")
 st.title("文书翻译 Translation AI")
-# Initialize or retrieve the selected model from session state
+# Initialize session state if not already set
 if 'selected_model' not in st.session_state:
     st.session_state['selected_model'] = 'gemini'  # Default model
+
+if 'trans_1_input' not in st.session_state:
+    st.session_state['trans_1_input'] = ''
+
+if 'trans_1_result' not in st.session_state:
+    st.session_state['trans_1_result'] = ''
+
+if 'trans_2_input' not in st.session_state:
+    st.session_state['trans_2_input'] = ''
+
+if 'trans_2_result' not in st.session_state:
+    st.session_state['trans_2_result'] = ''
 
 # Model selection radio button
 with st.expander("请选择使用的语言模型 Please choose the language model you'd like to use："):
@@ -29,6 +41,7 @@ with tab1:
     if submit1:
         with st.spinner("你的AI小助手正在努力工作嘤...Your AI translator is working..."):
             st.session_state['trans_1_result'] = generate_essay_toEnglish(st.session_state['trans_1_input'],st.session_state['trans_1_creativity'],st.session_state['selected_model'])
+    if st.session_state['trans_1_input']:
         st.divider()
         left,right = st.columns(2)
         with left:
@@ -36,7 +49,8 @@ with tab1:
             st.write(st.session_state['trans_1_input'])
         with right:
             st.markdown("#### 翻译后的文本 Translated text")
-            st.write(st.session_state['trans_1_result'] )
+            st.write(st.session_state['trans_1_result'])
+            st.download_button(label="一键下载生成内容 Download", data=st.session_state['trans_1_result'], file_name="my_results.txt")
 
 with tab2:
     
@@ -48,6 +62,7 @@ with tab2:
     if submit2:
         with st.spinner("你的AI小助手正在努力工作嘤...Your AI translator is working..."):
             st.session_state['trans_2_result'] = generate_essay_toChinese(st.session_state['trans_2_input'],st.session_state['trans_2_creativity'],st.session_state['selected_model'])
+    if st.session_state['trans_2_input']:
         st.divider()
         left,right = st.columns(2)
         with left:
@@ -56,3 +71,4 @@ with tab2:
         with right:
             st.markdown("#### 翻译后的文本 Translated text")
             st.write(st.session_state['trans_2_result'])
+            st.download_button(label="一键下载生成内容 Download", data=st.session_state['trans_2_result'], file_name="my_results.txt")
