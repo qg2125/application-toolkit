@@ -43,6 +43,9 @@ if submit_first:
             "-----------claude version-----------\n" + st.session_state['para_claude']
         )
 
+if st.session_state['downloads']:
+    st.download_button(label="一键下载生成内容 Download", data=st.session_state['downloads'], file_name="my_results.txt")
+
 # Display the generated content
 gpt_col, gemini_col, claude_col = st.columns([2, 2, 2])
 if st.session_state['para_gpt']:
@@ -59,5 +62,4 @@ if st.session_state['para_claude']:
         st.write(st.session_state['para_claude'])
 
 # Download button for the concatenated content
-if st.session_state['downloads']:
-    st.download_button(label="一键下载生成内容 Download", data=st.session_state['downloads'], file_name="my_results.txt")
+
