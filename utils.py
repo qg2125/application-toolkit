@@ -218,12 +218,22 @@ def get_random_question(*args):  # 添加 *args 来接受任何可能的参数
         str: A randomly selected question
     """
     questions = [
-        "How does the program in Columbia Engineering fulfill your career goal?",
-        "Tell us about a course you took in which you learned the most from",
-        "How do you feel about New York City?",
-        "How does your field align with your career goals?",
-        "What is your dream job?"
+    "How does the program in Columbia Engineering fulfill your career goal?",
+    "Tell us about a course you took in which you learned the most from.",
+    "How do you feel about New York City?",
+    "How does your field align with your career goals?",
+    "What is your dream job?",
+    "Where do you see yourself in ten years?",
+    "Are you interested in a career in industry or academia? And why?",
+    "What do you know about our department and the faculty?",
+    "Why pursue an advanced degree?",
+    "Do you have any internship or work experience? If so, what role did it play in your decision to pursue an MS degree?",
+    "Of the 8 standard tracks in the MS program, which are you most interested in and why?",
+    "What have you done thus far to prepare for your application?",
+    "We are very proud of our curriculum; what courses or topics are you excited about?",
+    "If you were to enter an academic/career path entirely unrelated to science and engineering, what would it be and why?"
     ]
+
     
     return choice(questions)
 
