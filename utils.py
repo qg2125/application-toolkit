@@ -3,7 +3,7 @@ from langchain.chains import ConversationChain
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
-from prompt_template import system_template_resume_content, system_template_toEnglish, user_template_toEnglish, system_template_toChinese, user_template_toChinese, system_template_rl_first, system_template_email, system_template_emai_reply, system_template_para, system_template_grammar
+from prompt_template import system_template_resume_content, system_template_toEnglish, user_template_toEnglish, system_template_toChinese, user_template_toChinese, system_template_rl_first, system_template_email, system_template_emai_reply, system_template_para, system_template_grammar, system_template_interview_tips,system_template_interview_eval
 
 
 #1 ChatMate AI
@@ -206,3 +206,57 @@ def grammar_checker(grammar_input):
     result_claude = chain_claude.invoke({"input": grammar_input}).content
 
     return result_gpt,result_gemini,result_claude
+
+# 10 mock interview
+from random import choice
+def get_random_question(*args):  # 添加 *args 来接受任何可能的参数
+    """
+    Returns a random question from a predefined list of questions about Columbia Engineering
+    and career goals.
+    
+    Returns:
+        str: A randomly selected question
+    """
+    questions = [
+        "How does the program in Columbia Engineering fulfill your career goal?",
+        "Tell us about a course you took in which you learned the most from",
+        "How do you feel about New York City?",
+        "How does your field align with your career goals?",
+        "What is your dream job?"
+    ]
+    
+    return choice(questions)
+
+def interview_tips(question):
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_template_interview_tips),
+        ("user", "{input}")
+    ])
+
+    
+    claude_model = ChatOpenAI(model=st.secrets["CLAUDE_MODEL"], api_key=st.secrets["CLAUDE_API_KEY"], base_url=st.secrets["CLAUDE_BASE_URL"])
+    
+    
+    chain_claude = prompt | claude_model
+    
+    
+    result_claude = chain_claude.invoke({"input": question}).content
+
+    return result_claude
+
+def interview_evaluation(question, answers):
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_template_interview_eval),
+        ("user", "{input}")
+    ])
+
+    
+    claude_model = ChatOpenAI(model=st.secrets["CLAUDE_MODEL"], api_key=st.secrets["CLAUDE_API_KEY"], base_url=st.secrets["CLAUDE_BASE_URL"])
+    
+    
+    chain_claude = prompt | claude_model
+    
+    
+    result_claude = chain_claude.invoke({"input": answers, "question": question}).content
+
+    return result_claude
