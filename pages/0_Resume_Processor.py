@@ -174,8 +174,8 @@ def main():
     # 创建处理器实例
     try:
         # 创建处理器实例
-        api_key = st.secrets.get("CLAUDE_API_KEY", "")  # 使用 get 方法防止键不存在时出错
-        base_url = st.secrets.get("4O_BASE_URL", "")
+        api_key = st.secrets.get("QWEN_API_KEY", "")  # 使用 get 方法防止键不存在时出错
+        base_url = st.secrets.get("QWEN_BASE_URL", "")
         
         if not api_key or not base_url:
             st.error("API设置错误：请检查secrets配置")

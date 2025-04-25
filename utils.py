@@ -331,22 +331,28 @@ class ResumeProcessor:
         
         return text
     
-    def call_openai_api(self, prompt, model="gpt-4o-mini"):
+    def call_openai_api(self, prompt, model="Qwen/Qwen2.5-72B-Instruct-128K"):
         """调用OpenAI API"""
         endpoint = f"{self.base_url}/v1/chat/completions"
         
         payload = {
             "model": model,
             "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.7
+            "temperature": 0.5,
+            "max_tokens": 3000,  # 设置合适的最大输出长度
+            
         }
         
-        response = requests.post(endpoint, headers=self.headers, json=payload)
-        
-        if response.status_code == 200:
-            return response.json()["choices"][0]["message"]["content"]
-        else:
-            raise Exception(f"API调用失败: {response.status_code} - {response.text}")
+        try:
+            response = requests.post(endpoint, headers=self.headers, json=payload)
+            response.raise_for_status()  # 检查HTTP错误
+            
+            if response.status_code == 200:
+                return response.json()["choices"][0]["message"]["content"]
+            else:
+                raise Exception(f"API调用失败: {response.status_code} - {response.text}")
+        except requests.exceptions.RequestException as e:
+            raise Exception(f"API请求失败: {str(e)}")
     
     def process_resume_with_ai(self, anonymized_text):
         """使用OpenAI API处理简历内容并提取结构化信息"""
@@ -368,7 +374,7 @@ class ResumeProcessor:
            - 科研项目，注明有几段科研经历，说明级别：国家级/省级/校级等，并且对于每段科研经历进行2-3句话的总结。
            - 发表论文情况（数量和级别）
            - 竞赛获奖情况
-           - 课外活动/社团/领导经历
+           - 课外活动/社团经历
            - 掌握的主要技能
         
         以JSON格式输出，格式如下：
