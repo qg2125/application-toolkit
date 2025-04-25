@@ -243,7 +243,7 @@ def main():
                     st.download_button(
                         label="📥 下载分析结果",
                         data=st_download,
-                        file_name=f"{uploaded_file.name.split('.')[0]}_分析结果.md",
+                        file_name=f"{uploaded_file.name.split('.')[0]}_分析结果.txt",
                         mime="text/markdown"
                     )
                     
